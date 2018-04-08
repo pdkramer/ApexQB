@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Apex" Class="ApexDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(local);Initial Catalog=Apex;Persist Security Info=True;User ID=ApexProg" SettingsObjectName="ApexQB.Properties.Settings" SettingsPropertyName="ApexConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.PO" Member="POs">
+    <Type Name="PO">
+      <Column Name="Po" Member="Po1" Type="System.String" DbType="VarChar(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Vendor" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="VendorName" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="VendorAdd1" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="VendorAdd2" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="VendorCity" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="VendorState" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="VendorZip" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="VendorAttn" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="VendorPhone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="VendorTerms" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="EntDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Buyer" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Via" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Fob" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="PoNet" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="PoTax" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="PoGross" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="PriceCol" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="Job" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="JobPhase" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="ShipDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Add1" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Add2" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Attn" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="WorkOrd" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="Warehouse" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="ExpBatch" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExpSent" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="TaxRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UserH1" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="UserH2" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="Requisition" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="Rev" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Release" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Division" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="POStatus" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="PurchasingMsg" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="PODesc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="OnlineStatus" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ContactID" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Association Name="PO_POLine" Member="POLines" ThisKey="Po1" OtherKey="Po" Type="POLine" />
+    </Type>
+  </Table>
+  <Table Name="dbo.POLine" Member="POLines">
+    <Type Name="POLine">
+      <Column Name="Po" Type="System.String" DbType="VarChar(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PoLine" Member="PoLine1" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Mfg" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="Item" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="MfgDesc" Type="System.String" DbType="VarChar(35)" CanBeNull="true" />
+      <Column Name="QtyOrd" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UM" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Ext" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="CostCode" Type="System.String" DbType="VarChar(9)" CanBeNull="true" />
+      <Column Name="QtyRcv" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AmtRcv" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="QtyOutst" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AmtOutst" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DiscPct" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="LineSts" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="Taxable" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="Override" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ExpBatch" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExpSent" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="UserL1" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="ExtDesc" Type="System.String" DbType="VarChar(75)" CanBeNull="true" />
+      <Column Name="ReqLine" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AllowSub" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="QtyIvc" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Contract" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Division" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CostCtr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="QtyRel" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="PO_POLine" Member="PO1" ThisKey="Po" OtherKey="Po1" Type="PO" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VendIvc" Member="VendIvcs">
+    <Type Name="VendIvc">
+      <Column Name="Invoice" Type="System.String" DbType="VarChar(15) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PO" Type="System.String" DbType="VarChar(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IvcAmt" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="IvcDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="PayDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IvcStatus" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ExpSent" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ExpBatch" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Association Name="VendIvc_VendIvcL" Member="VendIvcLs" ThisKey="Invoice,PO" OtherKey="Invoice,PO" Type="VendIvcL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Job" Member="Jobs">
+    <Type Name="Job">
+      <Column Name="Job" Member="Job1" Type="System.String" DbType="VarChar(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Add1" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Add2" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Attn" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="Budget" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="JobTotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TaxDefault" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="Schedule" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="TaxID" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="TaxRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="POMsg" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Company" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Division" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="CostCtr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Act" Type="System.String" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="PurchasingMsg" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Vendor" Member="Vendors">
+    <Type Name="Vendor">
+      <Column Name="Vendor" Member="Vendor1" Type="System.String" DbType="VarChar(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Add1" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Add2" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Attn" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="Terms" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="CompLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PermitLow" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="TaxRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Abbrev" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="POMsg" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="AcctID" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="PurchasingMsg" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="OnlineStatus" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Division" Member="Divisions">
+    <Type Name="Division">
+      <Column Name="Company" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Division" Member="Division1" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VENDTERM" Member="VENDTERMs">
+    <Type Name="VENDTERM">
+      <Column Name="VendTerm" Member="VendTerm1" Type="System.String" DbType="VarChar(15) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.QBJob" Member="QBJobs">
+    <Type Name="QBJob">
+      <Column Name="ApexCompany" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ApexJobID" Type="System.String" DbType="VarChar(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QBListID" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="QBJobName" Type="System.String" DbType="VarChar(209) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.QBVendor" Member="QBVendors">
+    <Type Name="QBVendor">
+      <Column Name="ApexCompany" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ApexVendorID" Type="System.String" DbType="VarChar(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QBListID" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="QBVendorName" Type="System.String" DbType="VarChar(41) NOT NULL" CanBeNull="false" />
+      <Column Name="Terms" Type="System.String" DbType="VarChar(31)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Costcode" Member="Costcodes">
+    <Type Name="Costcode">
+      <Column Name="Schedule" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CostCode" Member="CostCode1" Type="System.String" DbType="VarChar(9) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(35)" CanBeNull="true" />
+      <Column Name="GL" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VendIvcL" Member="VendIvcLs">
+    <Type Name="VendIvcL">
+      <Column Name="Invoice" Type="System.String" DbType="VarChar(15) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PO" Type="System.String" DbType="VarChar(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="POLine" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QtyIvc" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AmtIvc" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="VendIvc_VendIvcL" Member="VendIvc" ThisKey="Invoice,PO" OtherKey="Invoice,PO" Type="VendIvc" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.QBInvoice" Member="QBInvoices">
+    <Type Name="QBInvoice">
+      <Column Name="Invoice" Type="System.String" DbType="VarChar(15) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PO" Type="System.String" DbType="VarChar(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

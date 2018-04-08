@@ -1,0 +1,18 @@
+﻿using System;
+using System.Drawing;
+using System.Collections;
+using System.ComponentModel;
+using DevExpress.XtraReports.UI;
+
+namespace ApexQB
+{
+    public partial class StatusReport : DevExpress.XtraReports.UI.XtraReport
+    {
+        public StatusReport()
+        {
+            InitializeComponent();
+        }
+
+
+    }
+}
