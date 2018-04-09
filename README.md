@@ -1,7 +1,7 @@
 ﻿# ApexQB
 ### Apex/QuickBooks Interface
 
-This application provides an interface between Apex (Advanced Purchasing Extensions, written by Vulcan Software LLC).
+This application provides an interface between Apex (Advanced Purchasing Extensions, written by Vulcan Software LLC) and QuickBooks.
 
 Unfortunately, it cannot be run independently since it requires an Apex database.  
 
