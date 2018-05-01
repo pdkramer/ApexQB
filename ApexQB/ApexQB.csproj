@@ -27,12 +27,12 @@
     <InstallUrl>\\tpa-appex\apex\apexqb\</InstallUrl>
     <ProductName>ApexQB</ProductName>
     <PublisherName>Vulcan Software LLC</PublisherName>
-    <MinimumRequiredVersion>3.1.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>3.2.0.0</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>3.1.0.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -199,7 +199,9 @@
       <LastGenOutput>ApexData.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

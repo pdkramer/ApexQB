@@ -48,8 +48,8 @@
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(129, 67);
             this.lblStatus.TabIndex = 0;
-            this.lblStatus.Text = "Please select one of the buttons on the right to send invoices to QuickBooks and " +
-    "import data into Apex.";
+            this.lblStatus.Text = "Please select one of the buttons on the right to send Apex invoices to QuickBooks" +
+    " bills and import data into Apex.";
             // 
             // btnSendIvcs
             // 

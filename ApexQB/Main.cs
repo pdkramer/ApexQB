@@ -14,20 +14,23 @@ namespace ApexQB
 {
     public partial class frmMain : DevExpress.XtraEditors.XtraForm
     {
-        private const string BUILDDATE = "4/5/2018";
-        private string _Response;
-        private RequestProcessor2 _Rp;  //QuickBooks request processor
-        private string _Ticket;
-        private SqlConnectionStringBuilder _SqlConnBuilder;
-        private static List<StatusLine> _StatusLines = new List<StatusLine>();  //Status report lines
-        private string _QBCompanyName = String.Empty;
-        private string _ApexTargetCompany = String.Empty;
-        private bool _InvoicesSent = false;
-        private Regex _JobRegEx = new Regex(@"([EMT]\d{4}[A-Z]{3}\d[A-Z]\d{1,2})\s*(.*)");  //Format of job identifiers used by the client
+        private const string BUILDDATE = "4/30/2018";
 
-        //These two fields are specific to client rules and Apex, not the QuickBooks interface
-        private double _MaxDiffPct;  //Maximum percent an invoice can deviate from exactly reconciled and still be sent to QuickBooks
-        private decimal _MaxDiffAmt; //Maximum amount an invoice can deviate from exactly reconciled and still be sent to QuickBooks
+        private string                      _Response;
+        private RequestProcessor2           _Rp; //QuickBooks request processor
+        private string _Ticket;
+        private SqlConnectionStringBuilder  _SqlConnBuilder;
+        private static List<StatusLine>     _StatusLines = new List<StatusLine>();  //Status report lines
+        private string                      _QBCompanyName = String.Empty;
+        private string                      _ApexTargetCompany = String.Empty;
+        private bool                        _InvoicesSent = false;
+
+        //This regular expression is used to identify valid job numbers in the job names (specific to the client)
+        private Regex                       _JobRegEx = new Regex(@"([EMT]\d{4}[A-Z]{3}\d[A-Z]\d{1,2})\s*(.*)");
+
+        //These two fields are specific to client business rules and Apex, not the QuickBooks interface
+        private double      _MaxDiffPct;  //Maximum percent an invoice can deviate from exactly reconciled and still be sent to QuickBooks
+        private decimal     _MaxDiffAmt; //Maximum amount an invoice can deviate from exactly reconciled and still be sent to QuickBooks
 
 #if DEBUG
         //In DEBUGMODE we write the XML files used in the conversation to a specific disk directory that is assumed to exist
@@ -289,7 +292,7 @@ namespace ApexQB
                                         if (poline?.Taxable == "Y") poTaxableAmt += ivcLine.AmtIvc ?? 0;
                                     }
                                     double poTaxRate = apexData.POs.Where(s => s.Po1 == invoice.PO).Select(s => s.TaxRate).SingleOrDefault() ?? 0;
-                                    ivcTotal += ivcTotal * ((decimal)(poTaxRate * 0.01));
+                                    ivcTotal += poTaxableAmt * ((decimal)(poTaxRate * 0.01));
 
                                     decimal invoiceDiff = Math.Abs((invoice.IvcAmt ?? 0) - ivcTotal);
 
@@ -614,7 +617,7 @@ namespace ApexQB
                     Cursor.Current = Cursors.Default;
                 }
 
-                MessageBox.Show("QuickBooks data has been imported");
+                MessageBox.Show("QuickBooks data has been imported", "Importing complete");
             }
             catch (System.Runtime.InteropServices.COMException ex)
             {
@@ -925,18 +928,28 @@ namespace ApexQB
                             using (ApexDataDataContext dc = new ApexDataDataContext(_SqlConnBuilder.ConnectionString))
                             {
                                 Job job = null;
-                                QBJob qbjob = dc.QBJobs.Where(s => s.ApexCompany == _ApexTargetCompany && s.QBListID == cr.ListID).SingleOrDefault();
 
+                                QBJob qbjob;
+                                qbjob = dc.QBJobs.Where(s => s.ApexCompany == _ApexTargetCompany && s.ApexJobID == qbJobID && s.QBListID != cr.ListID)
+                                    .FirstOrDefault();
                                 if (qbjob != null)
                                 {
-                                    bool validJob = dc.Jobs.Where(s => s.Job1 == qbjob.ApexJobID).Any();
-                                    if (!validJob)  //Clean up records if an Apex user has changed or deleted the job (Test results 9/26/2017)
+                                    MessageBox.Show($"Job {qbJobID} from {qbJobName} has already been assigned to {qbjob.QBJobName} and cannot be transferred.", "Duplicate job");
+                                    continue;
+                                }
+
+                                qbjob = dc.QBJobs.Where(s => s.ApexCompany == _ApexTargetCompany && s.QBListID == cr.ListID).SingleOrDefault();
+                                if (qbjob != null)
+                                {
+                                    //See if we need to treat the job as new because the corresponding information was deleted in Apex
+                                    //or if the QuickBooks users changed the job ID
+                                    bool validJob = qbjob.ApexJobID == qbJobID && dc.Jobs.Where(s => s.Job1 == qbjob.ApexJobID).Any();
+                                    if (!validJob)
                                     {
                                         dc.QBJobs.DeleteOnSubmit(qbjob);
                                         dc.SubmitChanges();
                                         qbjob = null;
                                     }
-
                                 }
 
                                 bool newRecord;
