@@ -14,7 +14,7 @@ namespace ApexQB
 {
     public partial class frmMain : DevExpress.XtraEditors.XtraForm
     {
-        private const string BUILDDATE = "4/30/2018";
+        private const string BUILDDATE = "5/1/2018";
 
         private string                      _Response;
         private RequestProcessor2           _Rp; //QuickBooks request processor
@@ -26,7 +26,7 @@ namespace ApexQB
         private bool                        _InvoicesSent = false;
 
         //This regular expression is used to identify valid job numbers in the job names (specific to the client)
-        private Regex                       _JobRegEx = new Regex(@"([EMT]\d{4}[A-Z]{3}\d[A-Z]\d{1,2})\s*(.*)");
+        private Regex                       _JobRegEx = new Regex(@"([EMT]\d{4}[A-Z]{3}\d[A-Z]\d{2})\s*(.*)");
 
         //These two fields are specific to client business rules and Apex, not the QuickBooks interface
         private double      _MaxDiffPct;  //Maximum percent an invoice can deviate from exactly reconciled and still be sent to QuickBooks
@@ -877,6 +877,20 @@ namespace ApexQB
             }
         }
 
+        private void SetJobFields(CustomerRet cr, string qbJobName, Job job)
+        {
+            job.Add1 = LoadField(cr?.ShipAddress?.Addr1, 25);
+            job.Add2 = LoadField(cr?.ShipAddress?.Addr2, 25);
+            job.City = LoadField(cr?.ShipAddress?.City, 15);
+            job.State = LoadField(cr?.ShipAddress?.State, 4);
+            job.Zip = LoadField(cr?.ShipAddress?.PostalCode, 15);
+            job.EMail = LoadField(cr?.Email, 40);
+            job.Attn = LoadField(cr?.Contact, 20);
+            job.Phone = LoadField(cr?.Phone, 15);
+            job.Company = _ApexTargetCompany;
+            job.Name = LoadField(qbJobName, 25);
+        }
+
         private void TransferJobs(XmlSerializer serializer, XmlSerializerNamespaces ns, QBXML qbxml, QBXMLMsgsRq qbMsgsRq)
         {
             MemoryStream ms;
@@ -941,31 +955,36 @@ namespace ApexQB
                                 qbjob = dc.QBJobs.Where(s => s.ApexCompany == _ApexTargetCompany && s.QBListID == cr.ListID).SingleOrDefault();
                                 if (qbjob != null)
                                 {
-                                    //See if we need to treat the job as new because the corresponding information was deleted in Apex
-                                    //or if the QuickBooks users changed the job ID
-                                    bool validJob = qbjob.ApexJobID == qbJobID && dc.Jobs.Where(s => s.Job1 == qbjob.ApexJobID).Any();
-                                    if (!validJob)
+                                    if (qbjob.ApexJobID != qbJobID.PadLeft(12)) //we need to delete and treat as new
                                     {
                                         dc.QBJobs.DeleteOnSubmit(qbjob);
-                                        dc.SubmitChanges();
-                                        qbjob = null;
+                                        QBJob qbjob2 = new QBJob();
+                                        qbjob2.QBListID = cr?.ListID;
+                                        qbjob2.QBJobName = cr?.FullName;
+                                        qbjob2.ApexJobID = qbJobID.PadLeft(12);
+                                        qbjob2.ApexCompany = _ApexTargetCompany;
+                                        dc.QBJobs.InsertOnSubmit(qbjob2);
                                     }
+                                    else qbjob.QBJobName = cr?.FullName;
                                 }
-
-                                bool newRecord;
-
-                                if (qbjob == null) //new job
+                                else
                                 {
-                                    newRecord = true;
                                     qbjob = new QBJob();
-                                    job = new Job();
-
-                                    //Set up the translation table
                                     qbjob.QBListID = cr?.ListID;
                                     qbjob.QBJobName = cr?.FullName;
                                     qbjob.ApexJobID = qbJobID.PadLeft(12);
                                     qbjob.ApexCompany = _ApexTargetCompany;
+                                    dc.QBJobs.InsertOnSubmit(qbjob);
+                                }
 
+                                job = dc.Jobs.Where(s => s.Job1 == qbjob.ApexJobID.PadLeft(12)).SingleOrDefault();
+                                if (job != null)
+                                {
+                                    SetJobFields(cr, qbJobName, job);
+                                }
+                                else
+                                {
+                                    job = new Job();
                                     //Start the new Apex job
                                     job.Job1 = qbJobID.PadLeft(12);
                                     job.Act = "A";
@@ -973,29 +992,10 @@ namespace ApexQB
                                     job.TaxDefault = "Y";
                                     job.TaxRate = 0;
                                     job.POMsg = String.Empty;
-                                }
-                                else
-                                {
-                                    newRecord = false;
-                                    job = dc.Jobs.Where(s => s.Job1 == qbjob.ApexJobID).Single();
-                                }
-
-                                job.Add1 = LoadField(cr?.ShipAddress?.Addr1, 25);
-                                job.Add2 = LoadField(cr?.ShipAddress?.Addr2, 25);
-                                job.City = LoadField(cr?.ShipAddress?.City, 15);
-                                job.State = LoadField(cr?.ShipAddress?.State, 4);
-                                job.Zip = LoadField(cr?.ShipAddress?.PostalCode, 15);
-                                job.EMail = LoadField(cr?.Email, 40);
-                                job.Attn = LoadField(cr?.Contact, 20);
-                                job.Phone = LoadField(cr?.Phone, 15);
-                                job.Company = _ApexTargetCompany;
-                                job.Name = LoadField(qbJobName, 25);
-
-                                if (newRecord)
-                                {
-                                    dc.QBJobs.InsertOnSubmit(qbjob);
+                                    SetJobFields(cr, qbJobName, job);
                                     dc.Jobs.InsertOnSubmit(job);
                                 }
+
                                 dc.SubmitChanges();
                             }
                         }
