@@ -36,11 +36,11 @@ namespace ApexQB
             new GLAcct { ApexCompany = "T", ApexGLRef = "E", QBGLAcctFullName = "Cost of Goods Sold:E - TOOLS AND EQUIPMENT:Small Tools & Repairs PO" },
 
             //CEDB, company "E"
-            new GLAcct { ApexCompany = "E", ApexGLRef = "M", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):H - MATERIALS:15 - Materials PO" },
-            new GLAcct { ApexCompany = "E", ApexGLRef = "R", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):F - RENTAL EQUIPMENT:27 - Rental Equipment" },
-            new GLAcct { ApexCompany = "E", ApexGLRef = "T", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):F - RENTAL EQUIPMENT:40 - Trailer Rental" },
-            new GLAcct { ApexCompany = "E", ApexGLRef = "S", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):I - SUBCONTRACTS:18 - Subcontracts" },
-            new GLAcct { ApexCompany = "E", ApexGLRef = "E", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):E - TOOLS AND EQUIPMENT:Small Tools & Repairs PO" }
+            new GLAcct { ApexCompany = "E", ApexGLRef = "M", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):H MATERIALS:15 Materials PO" },
+            new GLAcct { ApexCompany = "E", ApexGLRef = "R", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):F RENTAL EQUIPMENT:27 Rental Equipment" },
+            new GLAcct { ApexCompany = "E", ApexGLRef = "T", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):F RENTAL EQUIPMENT:40 Trailer Rental" },
+            new GLAcct { ApexCompany = "E", ApexGLRef = "S", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):I SUBCONTRACTS" },
+            new GLAcct { ApexCompany = "E", ApexGLRef = "E", QBGLAcctFullName = "Cost of Goods Sold (Job Cost):E TOOLS AND EQUIPMENT:35 Small Tools & Repairs PO" }
          };
       }
    }

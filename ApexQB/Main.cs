@@ -14,7 +14,7 @@ namespace ApexQB
 {
     public partial class frmMain : DevExpress.XtraEditors.XtraForm
     {
-        private const string BUILDDATE = "10/27/2018";
+        private const string BUILDDATE = "02/21/2019";
 
         private string                      _Response;
         private RequestProcessor2           _Rp; //QuickBooks request processor
