@@ -66,6 +66,9 @@ namespace ApexQB
     partial void InsertQBInvoice(QBInvoice instance);
     partial void UpdateQBInvoice(QBInvoice instance);
     partial void DeleteQBInvoice(QBInvoice instance);
+    partial void InsertPropBag(PropBag instance);
+    partial void UpdatePropBag(PropBag instance);
+    partial void DeletePropBag(PropBag instance);
     #endregion
 		
 		public ApexDataDataContext() : 
@@ -191,6 +194,14 @@ namespace ApexQB
 			get
 			{
 				return this.GetTable<QBInvoice>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PropBag> PropBags
+		{
+			get
+			{
+				return this.GetTable<PropBag>();
 			}
 		}
 	}
@@ -4514,6 +4525,92 @@ namespace ApexQB
 					this._SentDate = value;
 					this.SendPropertyChanged("SentDate");
 					this.OnSentDateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PropBag")]
+	public partial class PropBag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _PropName;
+		
+		private string _PropVal;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPropNameChanging(string value);
+    partial void OnPropNameChanged();
+    partial void OnPropValChanging(string value);
+    partial void OnPropValChanged();
+    #endregion
+		
+		public PropBag()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PropName", DbType="VarChar(25) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string PropName
+		{
+			get
+			{
+				return this._PropName;
+			}
+			set
+			{
+				if ((this._PropName != value))
+				{
+					this.OnPropNameChanging(value);
+					this.SendPropertyChanging();
+					this._PropName = value;
+					this.SendPropertyChanged("PropName");
+					this.OnPropNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PropVal", DbType="VarChar(100)")]
+		public string PropVal
+		{
+			get
+			{
+				return this._PropVal;
+			}
+			set
+			{
+				if ((this._PropVal != value))
+				{
+					this.OnPropValChanging(value);
+					this.SendPropertyChanging();
+					this._PropVal = value;
+					this.SendPropertyChanged("PropVal");
+					this.OnPropValChanged();
 				}
 			}
 		}

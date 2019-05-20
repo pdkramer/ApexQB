@@ -14,7 +14,7 @@ namespace ApexQB
 {
     public partial class frmMain : DevExpress.XtraEditors.XtraForm
     {
-        private const string BUILDDATE = "04/25/2019";
+        private const string BUILDDATE = "05/20/2019";
 
         private string                      _Response;
         private RequestProcessor2           _Rp; //QuickBooks request processor
@@ -34,7 +34,7 @@ namespace ApexQB
 
 #if DEBUG
         //In DEBUGMODE we write the XML files used in the conversation to a specific disk directory that is assumed to exist
-        //This tremendously helps during troubleshooting
+        //This helps tremendously during troubleshooting
         private const bool DEBUGMODE = true;
 #else
       private const bool DEBUGMODE = false;
@@ -255,7 +255,15 @@ namespace ApexQB
                     {
                         _InvoicesSent = true;  //We have a valid invoice to send so present the interface status report when complete
 
-                        GLAcctUtility.GLAcctList = GLAcctUtility.BuildGLAcctList();
+                        try
+                        {
+                            GLAcctUtility.GLAcctList = GLAcctUtility.BuildGLAcctList(apexData);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "G/L Setup Error");
+                            return;
+                        }
 
                         foreach (VendIvc invoice in apexInvoiceList)
                         {

@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\dev\ApexQB\</PublishUrl>
+    <PublishUrl>Y:\dev\ApexQB\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -27,12 +27,12 @@
     <InstallUrl>\\tpa-appex\apex\apexqb\</InstallUrl>
     <ProductName>ApexQB</ProductName>
     <PublisherName>Vulcan Software LLC</PublisherName>
-    <MinimumRequiredVersion>3.6.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>4.0.0.0</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>3.6.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -88,5 +88,11 @@
         <elementListCompartment Id="3873f636-93cd-4abc-848d-05b932843d2b" absoluteBounds="0.89, 13.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="9d8f3ad4-906c-4e6d-b688-5f9aeef0ffcc" absoluteBounds="9.25, 11.5, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/ApexDataDataContext/PropBag" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3fe0a53f-d7ce-4645-8d3d-f66153d926ea" absoluteBounds="9.265, 11.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
